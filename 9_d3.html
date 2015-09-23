@@ -1,0 +1,86 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>liu</title>
+</head>
+
+<body>
+    <!--过渡：
+	   transition()
+	    .attr("fill","red")         //初始颜色为红色
+        .transition()               //启动过渡
+        .attr("fill","steelblue")   //终止颜色为铁蓝色
+	   
+	   duration()   //指定过渡的持续时间，单位为毫秒。
+	   
+	   指定过渡的方式，常用的有：
+
+       ease()
+        linear：普通的线性变化
+        circle：慢慢地到达变换的最终状态
+        elastic：带有弹跳的到达最终状态
+        bounce：在最终状态处弹跳几次
+		
+		delay()   //指定延迟的时间，表示一定时间后才开始转变, 单位同样为毫秒。此函数可以对整体指定延迟，也可以对个别指定延迟。
+-->
+    <script src="js/d3/d3.min.js"></script>
+	 <script>
+	    var width = 600;
+	 	var height = 600;
+
+	   var svg = d3.select("body")
+		.append("svg")
+		.attr("width", width)
+		.attr("height", height);
+
+        var circle1=svg.append("circle")
+		      .attr("cx",100)
+			  .attr("cy",100)
+			  .attr("r",45)
+		      .style("fill","green");
+			  
+	  	
+			
+		var circle2=svg.append("circle")
+		      .attr("cx",100)
+			  .attr("cy",200)
+			  .attr("r",45)
+		      .style("fill","green");
+			  
+	  
+			
+		var circle3=svg.append("circle")
+		      .attr("cx",100)
+			  .attr("cy",300)
+			  .attr("r",45)
+		      .style("fill","green");
+			  
+	  //在1秒（1000毫秒）内将圆心由100变为300
+	   circle1.transition()
+	        .duration(1000)
+			.attr("cx",300);
+			
+	   //在1.5秒（1500毫秒）内将圆心坐标由100变为300，
+	   //将颜色从绿色变为红色
+	   
+	    circle2.transition()
+	        .duration(1500)
+			.attr("cx",300)
+			.style("fill","red");
+			  
+	   //在2秒（2000毫秒）内将圆心坐标由100变为300
+	   //将颜色从绿色变为红色
+	   //将半径从45变成25
+	   //过渡方式采用bounce（在终点处弹跳几次）
+	   
+	    circle3.transition()
+	        .duration(2000)
+			.attr("cx",300)
+			.attr("r",25)
+			.ease("bounce")
+			.style("fill","red");
+     </script>
+
+</body>
+</html>
