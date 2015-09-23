@@ -1,0 +1,65 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>liu</title>
+</head>
+
+<body>
+     <!--如果数组为 [3, 6, 9, 12, 15]，将此数组绑定到三个 p 元素的选择集上。可以想象，会有两个数据没有元素与之对应，这时候 D3 会建立两个空的元素与数据对应，这一部分就称为 Enter。而有元素与数据对应的部分称为 Update。如果数组为 [3]，则会有两个元素没有数据绑定，那么没有数据绑定的部分被称为 Exit。
+	 update 部分的处理办法一般是：更新属性值
+     enter 部分的处理办法一般是：添加元素后，赋予属性值
+	 exit 部分的处理办法一般是：删除元素（remove）
+	 -->
+	      <script src="js/d3/d3.min.js"></script>
+	 <script>
+	     var dataset = [ 3 , 6 , 9 , 12 , 15 ];
+
+	     //选择body中的p元素
+	     var p = d3.select("body").selectAll("p");
+
+	     //获取update部分
+	     var update = p.data(dataset);
+	     
+	     //获取enter部分
+	     var enter = update.enter();
+
+	     //update部分的处理：更新属性值
+	     update.text(function(d){
+	         return "update " + d;
+	     });
+
+	     //enter部分的处理：添加元素后赋予属性值
+	     enter.append("p")
+ 	        .text(function(d){
+ 	            return "enter " + d;
+	         });
+	 </script>
+	 <script>
+	    var dataset = [ 3 ];
+
+	     //选择body中的p元素
+	     var p = d3.select("body").selectAll("p");
+
+	     //获取update部分
+	     var update = p.data(dataset);
+
+	     //获取exit部分
+	     var exit = update.exit();
+
+	     //update部分的处理：更新属性值
+	     update.text(function(d){
+	         return "update " + d;
+	     });
+
+	     //exit部分的处理：修改p元素的属性
+	     exit.text(function(d){
+	             return "exit";
+ 	        });
+
+	     //exit部分的处理通常是删除元素
+	     // exit.remove();
+	 </script>
+
+</body>
+</html>
