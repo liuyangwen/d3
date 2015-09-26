@@ -1,0 +1,66 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=gb2312" />
+<title>liu</title>
+</head>
+
+<body>
+     <script src="js/d3/d3.min.js"></script>
+	 <script>
+	 
+	     var width =300;
+		 var height=300;
+		 
+		 var svg=d3.select("body")
+		    .append("svg")
+			.attr("width",width)
+			.attr("height",height);
+			
+	     //var dataset=[30,10,43,55,13];
+		 var rand = d3.random.normal(0,10);  
+         var dataset = [];  
+         for(var i=0;i<5;i++){  
+           dataset.push( parseInt(rand()));  
+         }
+		 
+		 var pie=d3.layout.pie();//布局，pie是个函数
+		 var piedata =pie(dataset);
+		 
+		 var outerRadius=150;//外边距
+		 var innerRadius=0;//内边距
+		 
+		 var arc=d3.svg.arc()//弧生成器
+		      .innerRadius(innerRadius)//设置内边距
+			  .outerRadius(outerRadius);//设置外边距
+		
+		//color是一个颜色比例尺
+		var color =d3.scale.category10();//有十种颜色的颜色的比例尺
+			  
+		//设置g元素
+		var arcs =svg.selectAll("g")
+		     .data(piedata)
+			 .enter()
+			 .append("g")
+			 .attr("transform","translate("+(width/2)+","+(width/2)+")");
+	    //为每个<g>元素，添加<path>
+		arcs.append("path")
+		     .attr("fill",function(d,i){
+			     return color(i);
+			 })
+			 .attr("d",function(d){
+			      return arc(d);
+			 });
+		//为每一个弧线中心添加文本。
+		arcs.append("text")
+		     .attr("transform",function(d){
+			      return "translate("+arc.centroid(d)+")";//arc.centroid(d)能算出弧线的中心
+			 }) 
+			 .attr("text-anchor","middle")
+			 .text(function(d){
+			    return d.data;
+			 });
+		
+	 </script>
+</body>
+</html>
